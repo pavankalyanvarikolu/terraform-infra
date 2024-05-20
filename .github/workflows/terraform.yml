@@ -6,7 +6,6 @@ on:
       - main
          
 env: 
-  AWS_REGION: us-east-1
   TF_VERSION: 1.2.6   
 
 jobs:
@@ -20,13 +19,11 @@ jobs:
 
     steps:
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: arn:aws:iam::434605749312:role/aws-deployment-tf
-        role-session-name: staging-session    
-    - name: Checkout
-      uses: actions/checkout@v3
+        aws-access-key-id: ${{secrets.AWS_ACCESSKEY}}
+        aws-secret-access-key: ${{secrets.AWS_ACCESSKEY_PASSWORD}}
+        aws-region: ${{secrets.AWS_REGION}}
       
     - name: Setup terraform
       uses: hashicorp/setup-terraform@v1
